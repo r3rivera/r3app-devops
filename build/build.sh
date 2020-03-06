@@ -1,6 +1,6 @@
 !#/bin/bash
 #dir `date`
-echo "## Building the project of SMIS..."
+echo "## Building the project of ${APP_NAME}..."
 
 echo "## Displaying Java Version..."
 java -version
