@@ -3,10 +3,10 @@
 echo "## Building the project of ${APP_NAME}..."
 
 echo "## Displaying Java Version..."
-java -version
+java -version | head -n 1
 
 echo "## Displaying Maven Version..."
-mvn --version
+mvn --version | head -n 1
 
 echo "## Displaying GIT Version..."
-git --version
+git --version | head -n 1
