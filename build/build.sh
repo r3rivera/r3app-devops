@@ -23,3 +23,6 @@ echo "Git Commit :: ${GIT_COMMITID}"
 
 TARGET_FILE="${APP_NAME}_${GIT_COMMITID}_${BUILD_DATE}.zip"
 echo "Building the Application File ::: ${TARGET_FILE}"
+
+echo "########## Packaging the Application ##########"
+mvn clean package 
