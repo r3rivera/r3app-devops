@@ -13,5 +13,13 @@ echo "## Displaying GIT Version..."
 git --version | head -n 1
 
 echo "########## Start Building the Application ##########"
-GIT_COMMITID="$(git log | head -n 1)"
-echo "Latest Git Commit is ${GIT_COMMITID}"
+echo ""
+echo "Git URL    :: ${GIT_URL}"
+echo "Git Branch :: ${GIT_BRANCH}"
+
+GIT_COMMITID="$(git log | head -n 1 | cut -d ' ' -f 2)"
+BUILD_DATE="$(date +%m%d%Y_%H%M%S)"
+echo "Git Commit :: ${GIT_COMMITID}"
+
+TARGET_FILE="${APP_NAME}_${GIT_COMMITID}_${BUILD_DATE}.zip"
+echo "Building the Application File ::: ${TARGET_FILE}"
