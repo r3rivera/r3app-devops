@@ -12,20 +12,25 @@ mvn --version | head -n 1
 echo "## Displaying GIT Version..."
 git --version | head -n 1
 
-echo "########## Start Building the Application ##########"
+echo "############## START ::: BUILD INFORMATION ##############"
+echo ""
 echo ""
 echo "Git URL    :: ${GIT_URL}"
 echo "Git Branch :: ${GIT_BRANCH}"
-
 GIT_COMMITID="$(git log | head -n 1 | cut -d ' ' -f 2)"
 BUILD_DATE="$(date +%m%d%Y_%H%M%S)"
 echo "Git Commit :: ${GIT_COMMITID}"
+echo ""
+echo ""
+echo "############## END   ::: BUILD INFORMATION ##############"
 
 TARGET_FILE="${APP_NAME}_${GIT_COMMITID}_${BUILD_DATE}.zip"
 echo "Building the Application File ::: ${TARGET_FILE}"
 
 echo "########## Packaging the ${APP_NAME} ##########"
 mvn clean package -B || exit 1
-
 echo "########## Completed packaging the ${APP_NAME} ##########"
 
+echo "########## Getting Elastic Beanstalk Configuration ##########"
+echo "## Dev Tools Workspace is [ ${WORKSPACE}/${DEV_TOOLS} "
+## JAR File is SMIS_APP/target
