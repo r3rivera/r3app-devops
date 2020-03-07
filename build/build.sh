@@ -3,6 +3,8 @@
 echo "## Building the project of ${APP_NAME}..."
 echo "## Workspace is ${WORKSPACE}"
 
+
+
 echo "## Displaying Java Version..."
 java -version | head -n 1
 
@@ -22,17 +24,24 @@ BUILD_DATE="$(date +%m%d%Y_%H%M%S)"
 echo "Git Commit :: ${GIT_COMMITID}"
 echo ""
 echo ""
-echo "############## END   ::: BUILD INFORMATION ##############"
+
+STAGING_DIR = /temp/taging
+echo "Staging Directroy :: ${STAGING_DIR}"
 
 TARGET_FILE="${APP_NAME}_${GIT_COMMITID}_${BUILD_DATE}.zip"
 echo "Building the Application File ::: ${TARGET_FILE}"
+echo ""
+echo ""
+echo "############## END   ::: BUILD INFORMATION ##############"
+
 
 echo "########## Packaging the ${APP_NAME} ##########"
 mvn clean package -B || exit 1
 echo "########## Completed packaging the ${APP_NAME} ##########"
 
 echo "########## Getting Elastic Beanstalk Configuration ##########"
+if[[ ! -d ${STAGING_DIR}]] then
+    echo "Staging directory doesn't exist"
+fi
 
-DEVTOOLS_WORKSPACE=$(cd ../${WORKSPACE})
-echo "## Dev Tools Workspace is  ${DEVTOOLS_WORKSPACE} "
 ## JAR File is SMIS_APP/target
