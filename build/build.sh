@@ -50,7 +50,7 @@ if [[ ! -d ${WORKSPACE}/src/.ebextensions ]]
 then 
     echo "AWS Elastic Beanstalk Custom Config is not found!"
     exit 1
-elif 
+else 
    echo "Copying the AWS Elastic Beanstalk Configuration..."
    cp -R -v ${WORKSPACE}/src/.ebextensions ${STAGING_DIR}
 
