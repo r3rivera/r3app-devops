@@ -25,7 +25,7 @@ echo "Git Commit :: ${GIT_COMMITID}"
 echo ""
 echo ""
 
-STAGING_DIR = /temp/taging
+STAGING_DIR=/temp/staging
 echo "Staging Directroy :: ${STAGING_DIR}"
 
 TARGET_FILE="${APP_NAME}_${GIT_COMMITID}_${BUILD_DATE}.zip"
@@ -40,8 +40,13 @@ mvn clean package -B || exit 1
 echo "########## Completed packaging the ${APP_NAME} ##########"
 
 echo "########## Getting Elastic Beanstalk Configuration ##########"
-if[[ ! -d ${STAGING_DIR}]] then
+if [[ ! -d ${STAGING_DIR}]] then
     echo "Staging directory doesn't exist"
+fi
+
+if [[ ! -d ${WORKSPACE}/src/.ebextensions]] then 
+    echo "AWS Elastic Beanstalk Custom Config is not found!"
+    exit 1
 fi
 
 ## JAR File is SMIS_APP/target
