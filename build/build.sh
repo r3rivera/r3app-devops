@@ -25,7 +25,7 @@ echo "Git Commit :: ${GIT_COMMITID}"
 echo ""
 echo ""
 
-STAGING_DIR=/temp/staging
+STAGING_DIR=./app/staging
 echo "Staging Directroy :: ${STAGING_DIR}"
 
 TARGET_FILE="${APP_NAME}_${GIT_COMMITID}_${BUILD_DATE}.zip"
@@ -43,12 +43,19 @@ echo "########## Getting Elastic Beanstalk Configuration ##########"
 if [[ ! -d ${STAGING_DIR} ]] 
 then
     echo "Staging directory doesn't exist"
+    mkdir -p ${STAGING_DIR}
 fi
 
 if [[ ! -d ${WORKSPACE}/src/.ebextensions ]] 
 then 
     echo "AWS Elastic Beanstalk Custom Config is not found!"
     exit 1
+elif 
+   echo "Copying the AWS Elastic Beanstalk Configuration..."
+   cp -R -v ${WORKSPACE}/src/.ebextensions ${STAGING_DIR}
+
+   echo "Copying the JAR application..."
+   cp -v ${WORKSPACE}/target/*.jar ${STAGING_DIR}
 fi
 
-## JAR File is SMIS_APP/target
+echo "Start uploading the zip file in S3 Bucket as artifact!"
