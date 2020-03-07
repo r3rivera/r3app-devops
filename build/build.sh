@@ -33,6 +33,6 @@ echo "########## Completed packaging the ${APP_NAME} ##########"
 
 echo "########## Getting Elastic Beanstalk Configuration ##########"
 
-DEVTOOLS_WORKSPACE = cd ../${DEV_TOOLS}
-echo "## Dev Tools Workspace is [ ${DEVTOOLS_WORKSPACE} "
+DEVTOOLS_WORKSPACE=$(cd ../${DEV_TOOLS})
+echo "## Dev Tools Workspace is  ${DEVTOOLS_WORKSPACE} "
 ## JAR File is SMIS_APP/target
