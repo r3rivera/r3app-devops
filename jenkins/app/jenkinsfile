@@ -7,14 +7,19 @@ pipeline {
                 echo 'Building R3APP'
             }
         }
-        stage('Test') {
+        stage('DEV Env') {
             steps{
-                echo 'Testing R3APP'
+                echo 'Testing DEV R3APP'
             }
         }
-        stage('Deploy') {
+        stage('Test Env') {
             steps{
-                echo 'Deploying R3APP'
+                echo 'Testing TEST R3APP'
+            }
+        }
+        stage('ACPT Env') {
+            steps{
+                echo 'Deploying ACPT R3APP'
             }
         }
     }
