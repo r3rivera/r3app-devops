@@ -1,1 +1,21 @@
-def projectName = ""
+pipeline {
+    agent any
+
+    stages {
+        stages('Build') {
+            steps{
+                echo 'Building R3APP'
+            }
+        }
+        stage('Test') {
+            steps{
+                echo 'Testing R3APP'
+            }
+        }
+        stage('Deploy') {
+            steps{
+                echo 'Deploying R3APP'
+            }
+        }
+    }
+}
