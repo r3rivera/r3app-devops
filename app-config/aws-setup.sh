@@ -7,6 +7,6 @@ echo "############## Configuration ::: Setting up AWS CLI ##############"
 #sudo ./aws/install
 
 if ! [ -x "$(command -v aws)" ]; then
-  echo 'Error: AWS is not installed.' >&2
-  exit 1
+  echo 'ERROR ::: AWS is not installed.' >&2
+  #exit 1
 fi

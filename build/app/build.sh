@@ -3,9 +3,6 @@
 echo "## Building the project of ${APP_NAME}..."
 echo "## Workspace is ${WORKSPACE}"
 
-dos2unix ../app-config/aws-setup.sh
-../app-config/aws-setup.sh || exit 1
-
 echo "## Displaying Java Version..."
 java -version | head -n 1
 
@@ -18,11 +15,14 @@ git --version | head -n 1
 echo "############## START ::: BUILD INFORMATION ##############"
 echo ""
 echo ""
-echo "Git URL    :: ${GIT_URL}"
-echo "Git Branch :: ${GIT_BRANCH}"
+echo "Git URL      :: ${GIT_URL}"
+echo "Git Branch   :: ${GIT_BRANCH}"
+echo "Build ID     :: ${BUILD_ID}"
+echo "Build Number :: ${BUILD_NUMBER}"
+echo "Git Branch   :: ${GIT_BRANCH}"
 GIT_COMMITID="$(git log | head -n 1 | cut -d ' ' -f 2)"
 BUILD_DATE="$(date +%m%d%Y_%H%M%S)"
-echo "Git Commit :: ${GIT_COMMITID}"
+echo "Git Commit   :: ${GIT_COMMITID}"
 echo ""
 echo ""
 
