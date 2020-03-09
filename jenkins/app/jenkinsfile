@@ -10,14 +10,15 @@ pipeline {
             steps{
                 echo 'Building R3APP'
                 echo "CURRENT WORKSPACE ::: ${WORKSPACE}"
-
+                sh "whoami"
             }
         }
         stage('DEV Deploy') {
             steps{
                 echo 'Testing DEV R3APP'
-                //sh "sudo ./deploy/deploy-app.sh DEV"
-                sh "whoami"
+                sh "chmod +x ./deploy/deploy-app.sh"
+                sh "./deploy/deploy-app.sh DEV"
+
             }
         }
         stage('TEST Deploy') {
