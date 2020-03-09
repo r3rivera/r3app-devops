@@ -3,7 +3,7 @@
 echo "## Building the project of ${APP_NAME}..."
 echo "## Workspace is ${WORKSPACE}"
 
-
+../app-config/aws-setup.sh
 
 echo "## Displaying Java Version..."
 java -version | head -n 1
