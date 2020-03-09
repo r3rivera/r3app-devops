@@ -1,5 +1,5 @@
 def performDeploy(){
-
+    
 }
 
 pipeline {
@@ -9,8 +9,8 @@ pipeline {
         stage('Build') {
             steps{
                 echo 'Building R3APP'
-                sh "dos2unix ../${R3App_Devtools}/deploy/deploy-app.sh"
-                sh "../${R3App_Devtools}/deploy/deploy-app.sh"
+                sh "dos2unix ../${DEV_TOOLS}/deploy/deploy-app.sh"
+                sh "../${DEV_TOOLS}/deploy/deploy-app.sh"
 
             }
         }
