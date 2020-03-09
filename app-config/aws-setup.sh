@@ -1,3 +1,4 @@
+!#/bin/bash
 
 echo "############## Configuration ::: Setting up AWS CLI ##############"
 # Install AWS CLI Command
