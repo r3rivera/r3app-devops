@@ -16,7 +16,8 @@ pipeline {
         stage('DEV Deploy') {
             steps{
                 echo 'Testing DEV R3APP'
-                sh "sudo ./deploy/deploy-app.sh DEV"
+                //sh "sudo ./deploy/deploy-app.sh DEV"
+                sh "whoami"
             }
         }
         stage('TEST Deploy') {
