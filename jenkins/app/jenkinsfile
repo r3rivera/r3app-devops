@@ -9,16 +9,12 @@ pipeline {
         stage('Build') {
             steps{
                 echo 'Building R3APP'
-                sh "dos2unix ../${DEV_TOOLS}/deploy/deploy-app.sh"
-                sh "../${DEV_TOOLS}/deploy/deploy-app.sh"
-
+                echo "CURRENT WORKSPACE ::: ${WORKSPACE}"
             }
         }
         stage('DEV-Deploy') {
             steps{
                 echo 'Testing DEV R3APP'
-     
-
             }
         }
         stage('Test Env') {
