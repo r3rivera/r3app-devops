@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps{
                 echo 'Building R3APP'
-                
+                sh "echo ${WORKSPACE}"
             }
         }
         stage('DEV-Deploy') {
