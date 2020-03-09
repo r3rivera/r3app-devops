@@ -10,19 +10,21 @@ pipeline {
             steps{
                 echo 'Building R3APP'
                 echo "CURRENT WORKSPACE ::: ${WORKSPACE}"
+
             }
         }
-        stage('DEV-Deploy') {
+        stage('DEV Deploy') {
             steps{
                 echo 'Testing DEV R3APP'
+                sh "./deploy/deploy-app.sh DEV"
             }
         }
-        stage('Test Env') {
+        stage('TEST Deploy') {
             steps{
                 echo 'Testing TEST R3APP'
             }
         }
-        stage('ACPT Env') {
+        stage('ACPT Deploy') {
             steps{
                 echo 'Deploying ACPT R3APP'
             }
