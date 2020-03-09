@@ -9,7 +9,9 @@ pipeline {
         stage('Build') {
             steps{
                 echo 'Building R3APP'
-                sh "echo ${WORKSPACE}"
+                sh "dos2unix ../${R3App_Devtools}/deploy/deploy-app.sh"
+                sh "../${R3App_Devtools}/deploy/deploy-app.sh"
+
             }
         }
         stage('DEV-Deploy') {
