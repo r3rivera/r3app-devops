@@ -1,3 +1,7 @@
+def performDeploy(){
+
+}
+
 pipeline {
     agent any
 
@@ -5,11 +9,22 @@ pipeline {
         stage('Build') {
             steps{
                 echo 'Building R3APP'
+                
             }
         }
-        stage('DEV Env') {
+        stage('DEV-Deploy') {
             steps{
                 echo 'Testing DEV R3APP'
+                def USER_INPUT = input(
+                        message: 'Proceed with the deploy?',
+                        parameters: [
+                                [$class: 'ChoiceParameterDefinition',
+                                choices: ['no','yes'].join('\n'),
+                                name: 'input',
+                                description: 'Menu - select box option']
+                        ])
+                echo "The answer is: ${USER_INPUT}"
+
             }
         }
         stage('Test Env') {
@@ -22,5 +37,6 @@ pipeline {
                 echo 'Deploying ACPT R3APP'
             }
         }
+        
     }
 }
