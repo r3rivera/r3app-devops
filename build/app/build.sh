@@ -54,10 +54,22 @@ then
     echo "AWS Elastic Beanstalk Custom Config is not found!"
     exit 1
 else 
+   echo "Creating package folder"
+   TARGET_DIRFILE=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16)
+   mkdir -p ./${TARGET_DIRFILE}/.ebextensions
+   echo "Target folder :: ${TARGET_DIRFILE}"
+
+   echo "Copying files in within the ${TARGET_DIRFILE}"
+   cp -r ./src/.ebextensions/* ./${TARGET_DIRFILE}/.ebextensions
+   cp ./target/*.jar ./${TARGET_DIRFILE}
+
+   echo "Copying files in within the ${TARGET_DIRFILE} is complete."
+
    echo "Archiving the AWS Elastic Beanstalk Configuration and JAR Application..."
-   zip ${TARGET_FILE} ./src/.ebextensions/ ./target/*.jar
+   cd ./${TARGET_DIRFILE} 
+   zip -r ${TARGET_FILE} /.ebextensions/* *.jar
    ls -l ${TARGET_FILE}
- 
+
 fi
 
 echo "Start uploading the zip file in S3 Bucket as artifact!"
