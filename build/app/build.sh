@@ -29,7 +29,9 @@ echo ""
 if [[ ${APP_NAME} == "" ]]
 then
     echo "WARNING :: APP_NAME is not found. Using Git repo as APP_NAME"
-    APP_NAME=$(echo ${GIT_URL} | cut -d '/' -f 4)
+    
+    #Parsing the GIT URL to grab the repo name.
+    APP_NAME=$(echo ${GIT_URL} | cut -d '/' -f 5 | cut -d '.' -f 1)
     echo "Using ${APP_NAME} as target name"
 fi
 
