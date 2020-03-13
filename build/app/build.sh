@@ -37,7 +37,7 @@ then
     APP_NAME=$(echo ${GIT_URL} | cut -d '/' -f 5 | cut -d '.' -f 1)
     echo "Using ${APP_NAME} as target name"
 fi
-GIT_COMMIT_SUFFIX=$(GIT_COMMITID | tail -c 5)
+GIT_COMMIT_SUFFIX=$(${GIT_COMMITID} | tail -c 5)
 TARGET_FILE="${APP_NAME}_${GIT_COMMITID:0:5}_${GIT_COMMIT_SUFFIX}_${BUILD_DATE}.zip"
 echo "Building the Application File ::: ${TARGET_FILE}"
 echo ""
