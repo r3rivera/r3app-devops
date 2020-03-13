@@ -26,6 +26,12 @@ echo "Git Commit   :: ${GIT_COMMITID}"
 echo ""
 echo ""
 
+if [[ ${APP_NAME} == "" ]]
+then
+    echo "WARNING :: APP_NAME is not found. Using Git repo as APP_NAME"
+    APP_NAME = "rcub3_app"
+fi
+
 TARGET_FILE="${APP_NAME}_${GIT_COMMITID}_${BUILD_DATE}.zip"
 echo "Building the Application File ::: ${TARGET_FILE}"
 echo ""
@@ -47,3 +53,5 @@ else
 fi
 
 echo "Start uploading the zip file in S3 Bucket as artifact!"
+
+### One way to generate random ID

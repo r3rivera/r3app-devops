@@ -1,3 +1,3 @@
 #!/bin/bash
 echo "deploy-app.sh ::: Deploying applications..."
-echo "deploy-app.sh ::: Params are :: $1"
+echo "deploy-app.sh ::: Target Environment is :: $1"

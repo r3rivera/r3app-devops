@@ -11,12 +11,12 @@ pipeline {
                 echo 'Building R3APP'
                 echo "CURRENT WORKSPACE ::: ${WORKSPACE}"
                 sh "whoami"
+                sh "chmod +x ./deploy/*.sh"
             }
         }
         stage('DEV Deploy') {
             steps{
                 echo 'Testing DEV R3APP'
-                sh "chmod +x ./deploy/deploy-app.sh"
                 sh "./deploy/deploy-app.sh DEV"
 
             }
