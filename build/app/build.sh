@@ -55,7 +55,7 @@ then
     exit 1
 else 
    echo "Archiving the AWS Elastic Beanstalk Configuration and JAR Application..."
-   zip -r ${TARGET_FILE} ./src/.ebextensions/ ./target/*.jar
+   zip ${TARGET_FILE} ./src/.ebextensions/ ./target/*.jar
    ls -l ${TARGET_FILE}
  
 fi
