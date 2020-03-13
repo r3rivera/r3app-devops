@@ -55,8 +55,8 @@ then
     exit 1
 else 
    echo "Creating package folder"
-   #TARGET_DIRFILE=$(/dev/urandom | head -n 1 | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)
-   TARGET_DIRFILE=$(echo ${GIT_COMMITID} | tail -c 10)
+   TARGET_DIRFILE=$(/dev/urandom | head -n 1 | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)
+   #TARGET_DIRFILE=$(echo ${GIT_COMMITID} | tail -c 10)
    mkdir -p ./${TARGET_DIRFILE}/.ebextensions
    echo "Target folder :: ${TARGET_DIRFILE}"
 
@@ -76,11 +76,12 @@ else
    echo "Creating a summary file..."
    SUMMARY_FILE=${GIT_COMMITID:0:5}${GIT_COMMIT_SUFFIX}.txt
    touch ${SUMMARY_FILE}
-   echo "jenkins.build.id=${Build Number}" >> ${SUMMARY_FILE}
+   echo "jenkins.build.id=${BUILD_NUMBER}" >> ${SUMMARY_FILE}
    echo "jenkins.build.date=${BUILD_DATE}" >> ${SUMMARY_FILE}
    echo "jenkins.build.time=${BUILD_TIME}" >> ${SUMMARY_FILE}
    echo "git.commit.id=${GIT_COMMITID}" >> ${SUMMARY_FILE}
    
+   cat ${SUMMARY_FILE}
 
 fi
 
