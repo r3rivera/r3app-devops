@@ -21,7 +21,10 @@ echo "Build ID     :: ${BUILD_ID}"
 echo "Build Number :: ${BUILD_NUMBER}"
 echo "Git Branch   :: ${GIT_BRANCH}"
 GIT_COMMITID="$(git log | head -n 1 | cut -d ' ' -f 2)"
-BUILD_DATE="$(date +%m%d%Y_%H%M%S)"
+BUILD_DATE="$(date +%m%d%Y)"
+BUILD_TIME="$(date +%H%M%S)"
+echo "Build Date   :: ${BUILD_DATE}"
+echo "Build Time   :: ${BUILD_TIME}"
 echo "Git Commit   :: ${GIT_COMMITID}"
 echo ""
 echo ""
@@ -34,8 +37,8 @@ then
     APP_NAME=$(echo ${GIT_URL} | cut -d '/' -f 5 | cut -d '.' -f 1)
     echo "Using ${APP_NAME} as target name"
 fi
-
-TARGET_FILE="${APP_NAME}${GIT_COMMITID:0:5}_${BUILD_DATE}.zip"
+GIT_COMMIT_SUFFIX=$(GIT_COMMITID | tail -c 5)
+TARGET_FILE="${APP_NAME}_${GIT_COMMITID:0:5}_${GIT_COMMIT_SUFFIX}_${BUILD_DATE}.zip"
 echo "Building the Application File ::: ${TARGET_FILE}"
 echo ""
 echo ""
