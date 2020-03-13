@@ -29,7 +29,8 @@ echo ""
 if [[ ${APP_NAME} == "" ]]
 then
     echo "WARNING :: APP_NAME is not found. Using Git repo as APP_NAME"
-    APP_NAME='rcub3_app'
+    APP_NAME=$(echo ${GIT_URL} | cut -d '/' -f 4)
+    echo "Using ${APP_NAME} as target name"
 fi
 
 TARGET_FILE="${APP_NAME}_${GIT_COMMITID}_${BUILD_DATE}.zip"
