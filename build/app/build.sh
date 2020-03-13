@@ -29,7 +29,7 @@ echo ""
 if [[ ${APP_NAME} == "" ]]
 then
     echo "WARNING :: APP_NAME is not found. Using Git repo as APP_NAME"
-    APP_NAME = "rcub3_app"
+    export APP_NAME = "rcub3_app"
 fi
 
 TARGET_FILE="${APP_NAME}_${GIT_COMMITID}_${BUILD_DATE}.zip"
