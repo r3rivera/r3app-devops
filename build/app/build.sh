@@ -61,14 +61,14 @@ else
    echo "Target folder :: ${TARGET_DIRFILE}"
 
    echo "Copying files in within the ${TARGET_DIRFILE}"
-   cp -r ./src/.ebextensions/* ./${TARGET_DIRFILE}/.ebextensions
-   cp ./target/*.jar ./${TARGET_DIRFILE}
+   cp -rv ./src/.ebextensions/* ./${TARGET_DIRFILE}/.ebextensions
+   cp -v ./target/*.jar ./${TARGET_DIRFILE}
 
    echo "Copying files in within the ${TARGET_DIRFILE} is complete."
 
    echo "Archiving the AWS Elastic Beanstalk Configuration and JAR Application..."
    cd ./${TARGET_DIRFILE} 
-   zip -r ${TARGET_FILE} /.ebextensions/* *.jar
+   zip -r ${TARGET_FILE} ./.ebextensions/ *.jar
    ls -l ${TARGET_FILE}
 
 fi
