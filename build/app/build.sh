@@ -74,7 +74,7 @@ else
 
    #Create a summary file
    echo "Creating a summary file..."
-   SUMMARY_FILE=${GIT_COMMITID:0:5}${GIT_COMMIT_SUFFIX}.txt
+   SUMMARY_FILE=${GIT_COMMITID:0:5}${GIT_COMMIT_SUFFIX}_BUILD_SUMMARY.txt
    touch ${SUMMARY_FILE}
    echo "jenkins.build.id=${BUILD_NUMBER}" >> ${SUMMARY_FILE}
    echo "jenkins.build.date=${BUILD_DATE}" >> ${SUMMARY_FILE}
