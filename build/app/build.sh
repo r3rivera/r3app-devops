@@ -29,13 +29,13 @@ echo ""
 if [[ ${APP_NAME} == "" ]]
 then
     echo "WARNING :: APP_NAME is not found. Using Git repo as APP_NAME"
-    
+
     #Parsing the GIT URL to grab the repo name.
     APP_NAME=$(echo ${GIT_URL} | cut -d '/' -f 5 | cut -d '.' -f 1)
     echo "Using ${APP_NAME} as target name"
 fi
 
-TARGET_FILE="${APP_NAME}_${GIT_COMMITID}_${BUILD_DATE}.zip"
+TARGET_FILE="${APP_NAME}${GIT_COMMITID:0:5}_${BUILD_DATE}.zip"
 echo "Building the Application File ::: ${TARGET_FILE}"
 echo ""
 echo ""
@@ -53,6 +53,8 @@ then
 else 
    echo "Archicing the AWS Elastic Beanstalk Configuration and JAR Application..."
    zip -r ${TARGET_FILE} ${WORKSPACE}/src/.ebextensions ${WORKSPACE}/target/*.jar
+
+ 
 fi
 
 echo "Start uploading the zip file in S3 Bucket as artifact!"
