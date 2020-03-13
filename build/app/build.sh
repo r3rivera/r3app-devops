@@ -55,7 +55,8 @@ then
     exit 1
 else 
    echo "Creating package folder"
-   TARGET_DIRFILE=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16)
+   #TARGET_DIRFILE=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16)
+   TARGET_DIRFILE=$(echo ${GIT_COMMITID} | tail -c 10)
    mkdir -p ./${TARGET_DIRFILE}/.ebextensions
    echo "Target folder :: ${TARGET_DIRFILE}"
 
