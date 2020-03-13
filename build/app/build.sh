@@ -61,18 +61,37 @@ else
    echo "Target folder :: ${TARGET_DIRFILE}"
 
    echo "Copying files in within the ${TARGET_DIRFILE}"
-   cp -rv ./src/.ebextensions/* ./${TARGET_DIRFILE}/.ebextensions
-   cp -v ./target/*.jar ./${TARGET_DIRFILE}
+   cp -rv ./src/.ebextensions/* ./${TARGET_DIRFILE}/.ebextensions || exit 1
+   cp -v ./target/*.jar ./${TARGET_DIRFILE} || exit 1
 
-   echo "Copying files in within the ${TARGET_DIRFILE} is complete."
+   echo "Copying files in within the ${TARGET_DIRFILE} is complete..."
 
+   #Zipping the JAR file and the .ebextensions folder
    echo "Archiving the AWS Elastic Beanstalk Configuration and JAR Application..."
    cd ./${TARGET_DIRFILE} 
    zip -r ${TARGET_FILE} ./.ebextensions/ *.jar
    ls -l ${TARGET_FILE}
 
+   #Create a summary file
+   echo "Creating a summary file..."
+   SUMMARY_FILE=${GIT_COMMITID:0:5}${GIT_COMMIT_SUFFIX}.txt
+   touch ${SUMMARY_FILE}
+   echo "jenkins.build.id=${Build Number}" >> ${SUMMARY_FILE}
+   echo "jenkins.build.date=${BUILD_DATE}" >> ${SUMMARY_FILE}
+   echo "jenkins.build.time=${BUILD_TIME}" >> ${SUMMARY_FILE}
+   echo "git.commit.id=${GIT_COMMITID}" >> ${SUMMARY_FILE}
+   
+
 fi
 
-echo "Start uploading the zip file in S3 Bucket as artifact!"
+if [[ ! -f ${TARGET_FILE} ]]
+then 
+    echo "${TARGET_FILE} is not found! Packaging failed!"
+    exit 1
+else
+    echo "Start uploading the zip file in S3 Bucket as artifact!"
+    aws --version
+fi
+
 
 ### One way to generate random ID
