@@ -1,0 +1,39 @@
+def performDeploy(){
+    
+}
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps{
+                echo 'Building R3APP'
+                echo "CURRENT WORKSPACE ::: ${WORKSPACE}"
+                sh "whoami"
+                sh "chmod +x ./deploy/*.sh"
+
+                echo "S3 Bucket        :: [ ${S3_BUCKET} ]"
+                echo "S3 Bucket Prefix :: [ ${S3_BUCKET_PREFIX} ]"
+            }
+        }
+        stage('DEV Deploy') {
+            steps{
+                echo 'Testing DEV R3APP'
+                sh "./deploy/deploy-app.sh DEV"
+
+            }
+        }
+        stage('TEST Deploy') {
+            steps{
+                echo 'Testing TEST R3APP'
+            }
+        }
+        stage('ACPT Deploy') {
+            steps{
+                echo 'Deploying ACPT R3APP'
+            }
+        }
+        
+    }
+}
