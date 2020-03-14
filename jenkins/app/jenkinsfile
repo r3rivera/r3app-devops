@@ -13,8 +13,6 @@ pipeline {
                 sh "whoami"
                 sh "chmod +x ./deploy/*.sh"
 
-                echo "S3 Bucket        :: [ ${S3_BUCKET} ]"
-                echo "S3 Bucket Prefix :: [ ${S3_BUCKET_PREFIX} ]"
             }
         }
         stage('DEV Deploy') {

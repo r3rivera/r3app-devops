@@ -99,11 +99,19 @@ else
     aws --version
 
     S3_BUCKET_PREFIX_SUB=B${BUILD_NUMBER}_C${GIT_COMMITID:0:5}${GIT_COMMIT_SUFFIX}_${BUILD_DATE}${BUILD_TIME}
+    S3_TARGET_BUCKET_PREFIX=s3://${S3_BUCKET}/${S3_BUCKET_PREFIX}/${S3_BUCKET_PREFIX_SUB}
+
     echo "Uploading summary file :: ${SUMMARY_FILE}..."
-    aws s3 cp ${SUMMARY_FILE} s3://${S3_BUCKET}/${S3_BUCKET_PREFIX}/${S3_BUCKET_PREFIX_SUB}/${SUMMARY_FILE} || exit 1
+    aws s3 cp ${SUMMARY_FILE} ${S3_TARGET_BUCKET_PREFIX}/${SUMMARY_FILE} || exit 1
 
     echo "Uploading application package :: ${TARGET_FILE}..."
-    aws s3 cp ${TARGET_FILE} s3://${S3_BUCKET}/${S3_BUCKET_PREFIX}/${S3_BUCKET_PREFIX_SUB}/${TARGET_FILE} || exit 1
+    aws s3 cp ${TARGET_FILE} ${S3_TARGET_BUCKET_PREFIX}/${TARGET_FILE} || exit 1
+
+    echo "Completed with the S3 File/Artifact Upload..."
+    echo "Exporting variables..."
+    export S3_BUCKET_PREFIX_SUB=${S3_BUCKET_PREFIX_SUB}
+    export TARGET_FILE=${TARGET_FILE} 
+    echo "Exporting variables...Completed."
 fi
 
 
