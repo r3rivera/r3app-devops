@@ -100,10 +100,10 @@ else
 
     S3_BUCKET_PREFIX_SUB=B${BUILD_NUMBER}_C${GIT_COMMITID:0:5}${GIT_COMMIT_SUFFIX}_${BUILD_DATE}${BUILD_TIME}
     echo "Uploading summary file :: ${SUMMARY_FILE}..."
-    aws s3 cp ${SUMMARY_FILE} s3://${S3_BUCKET}/${S3_BUCKET_PREFIX}/${S3_BUCKET_PREFIX_SUB}/${SUMMARY_FILE}) || exit 1
+    aws s3 cp ${SUMMARY_FILE} s3://${S3_BUCKET}/${S3_BUCKET_PREFIX}/${S3_BUCKET_PREFIX_SUB}/${SUMMARY_FILE} || exit 1
 
     echo "Uploading application package :: ${TARGET_FILE}..."
-    aws s3 cp ${TARGET_FILE} s3://${S3_BUCKET}/${S3_BUCKET_PREFIX}/${S3_BUCKET_PREFIX_SUB}/${TARGET_FILE}) || exit 1
+    aws s3 cp ${TARGET_FILE} s3://${S3_BUCKET}/${S3_BUCKET_PREFIX}/${S3_BUCKET_PREFIX_SUB}/${TARGET_FILE} || exit 1
 fi
 
 
