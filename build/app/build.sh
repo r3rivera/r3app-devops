@@ -110,7 +110,7 @@ else
     echo "Completed with the S3 File/Artifact Upload..."
     echo "Exporting variables..."
 
-    echo S3_BUCKET_PREFIX_SUB=${S3_BUCKET_PREFIX_SUB} >> ${WORKSPACE}/env.properties
+    echo S3_TARGET_BUCKET_PREFIX=${S3_TARGET_BUCKET_PREFIX} >> ${WORKSPACE}/env.properties
     echo TARGET_FILE=${TARGET_FILE} >> ${WORKSPACE}/env.properties
     
     echo "Exporting variables...Completed."

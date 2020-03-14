@@ -9,7 +9,9 @@ pipeline {
         stage('Build') {
             steps{
                 echo 'Building R3APP'
-                echo "CURRENT WORKSPACE ::: ${WORKSPACE}"
+                echo "CURRENT WORKSPACE       ::: [ ${WORKSPACE} ]"
+                echo "S3 Target Bucket Prefix ::: [ ${S3_TARGET_BUCKET_PREFIX} ]"
+                echo "Target File is          ::: [ ${TARGET_FILE} ]"
                 sh "whoami"
                 sh "chmod +x ./deploy/*.sh"
 
