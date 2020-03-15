@@ -1,0 +1,14 @@
+---
+Resources:
+  R2EC2AppInstances: # Logical Identifier, Use only a s reference within the tempalte
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0998bf58313ab53da # US-EAST-2 Region. Check EC2 AMIs available
+      Tags:
+        - Key: Name
+          Value: r2app-devl-01-instance
+        - Key: EnvType
+          Value: Blue
+
+      

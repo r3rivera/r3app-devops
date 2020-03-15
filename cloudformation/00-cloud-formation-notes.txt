@@ -1,0 +1,7 @@
+Intrinsic Function 
+
+1. JOIN - Appends a set of value into a single value 
+   Yaml Example:  !Join [delimeter,[comma-delimited list of values]]
+                  !Join [ ":", [apple, banana, melon]] 
+
+2. See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html

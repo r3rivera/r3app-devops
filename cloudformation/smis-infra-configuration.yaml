@@ -1,0 +1,35 @@
+---
+Resources:
+  RCGCEC2AppInstances: # Logical Identifier, Use only a s reference within the tempalte
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0998bf58313ab53da # US-EAST-2 Region. Check EC2 AMIs available
+      Tags:
+        - Key: Name
+          Value: rcgc-devl-01-instance
+        - Key: EnvType
+          Value: Blue
+      SecurityGroups:
+        - !Ref RCGCSecurityGroup #References the logical name of security group
+  RCGCS3BucketConfig:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: rcgc-web-ui-resources # Bucket containing the angular files for frontend
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+  RCGCSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupName: RCGC-EC2-SECGRP
+      GroupDescription: Enable SSH and WEB Port 
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 8080
+          ToPort: 8080
+          CidrIp: 0.0.0.0/0
