@@ -16,6 +16,10 @@ Resources:
   RCGCEC2AppInstances: # Logical Identifier, Use only a s reference within the tempalte
     Type: 'AWS::EC2::Instance'
     Properties:
+      UserData:
+        !Base64 |
+          #!/bin/bash -xe
+          yum update -y 
       InstanceType: t2.micro
       ImageId: !FindInMap # US-EAST-2 Region. Check EC2 AMIs available
         - AWSRegionMap
@@ -50,3 +54,12 @@ Resources:
           FromPort: 8080
           ToPort: 8080
           CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
+          CidrIp: 0.0.0.0/0
+Outputs:
+  ServerDns:
+    Value: !GetAtt
+      - Ec2Instance
+      - PublicDnsName
