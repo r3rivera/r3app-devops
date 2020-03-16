@@ -1,28 +1,45 @@
 ---
+Parameters: # Generates an Input Parameter that gets the user prompted
+  OrgName:
+    Type: String
+    Default: r2app 
+  EC2KeyPairName:
+    Description: EC2 Key Pair Name for SSH 
+    Type: AWS::EC2::KeyPair::KeyName
+Mappings:
+  AWSRegionMap:
+    us-east-1:
+      EC2AMI: ami-placeholder #Need to define the AMI provided in the region
+    us-east-2:
+      EC2AMI: ami-0998bf58313ab53da      
 Resources:
   RCGCEC2AppInstances: # Logical Identifier, Use only a s reference within the tempalte
     Type: 'AWS::EC2::Instance'
     Properties:
       InstanceType: t2.micro
-      ImageId: ami-0998bf58313ab53da # US-EAST-2 Region. Check EC2 AMIs available
+      ImageId: !FindInMap # US-EAST-2 Region. Check EC2 AMIs available
+        - AWSRegionMap
+        - !Ref 'AWS::Region'
+        - EC2AMI
       Tags:
         - Key: Name
-          Value: rcgc-devl-01-instance
+          Value: !Join [ "-", [ !Ref OrgName, devl-01-instance ]]
         - Key: EnvType
           Value: Blue
+      KeyName: !Ref EC2KeyPairName # References the input parameter in the Parameters section
       SecurityGroups:
-        - !Ref RCGCSecurityGroup #References the logical name of security group
+        - !Ref RCGCSecurityGroup #References the logical name of security group. This is a way to set dependencies
   RCGCS3BucketConfig:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: rcgc-web-ui-resources # Bucket containing the angular files for frontend
+      BucketName: !Join [ "-", [ !Ref OrgName, web-ui-resource ]] # Bucket containing the angular files for frontend
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
   RCGCSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
-      GroupName: RCGC-EC2-SECGRP
+      GroupName: !Join [ "-", [ !Ref OrgName, ec2-secgroup ]]
       GroupDescription: Enable SSH and WEB Port 
       SecurityGroupIngress:
         - IpProtocol: tcp
