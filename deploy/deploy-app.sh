@@ -7,7 +7,7 @@ echo "deploy-app.sh ::: Target File is [ ${TARGET_FILE} ]"
 #1. Get the environment config from S3
 echo "deploy-app.sh ::: Configuration bucket is ::: ${S3_APPL_CONFIG_BUCKET}"
 
-CONFIG_NAME=$(echo ${S3_APPL_CONFIG_BUCKET} | cut -d '/' -f 5)
+CONFIG_NAME=$(echo ${S3_APPL_CONFIG_BUCKET} | cut -d '/' -f 4)
 echo "deploy-app.sh ::: Configuration Name is ::: ${CONFIG_NAME}"
 aws s3 cp ${S3_APPL_CONFIG_BUCKET} ${CONFIG_NAME}
 if [[ ! -f ${CONFIG_NAME} ]]
