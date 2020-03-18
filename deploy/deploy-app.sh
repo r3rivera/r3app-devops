@@ -15,6 +15,6 @@ then
   echo "Environment configuration is missing!"
   exit 1
 fi 
-source ${CONFIG_NAME}
+source ./${CONFIG_NAME}
 echo "deploy-app.sh ::: EB Application Name :: ${dev-smis-eb-appl-name}"
 echo "deploy-app.sh ::: EB Environment Name :: ${dev-smis-eb-env-name}"
