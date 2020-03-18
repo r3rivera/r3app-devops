@@ -33,13 +33,18 @@ Resources:
       KeyName: !Ref EC2KeyPairName # References the input parameter in the Parameters section
       SecurityGroups:
         - !Ref RCGCSecurityGroup #References the logical name of security group. This is a way to set dependencies
-  RCGCS3BucketConfig:
+  RCGCS3BucketStaticWebConfig:
     Type: 'AWS::S3::Bucket'
     Properties:
       BucketName: !Join [ "-", [ !Ref OrgName, web-ui-resource ]] # Bucket containing the angular files for frontend
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
+  RCGCS3ApplicationConfigBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Join [ "-", [ !Ref OrgName, appl-config ]] # Bucket containing the backend service config
+      AccessControl: AuthenticatedRead
   RCGCSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
