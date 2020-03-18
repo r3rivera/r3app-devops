@@ -16,5 +16,5 @@ then
   exit 1
 fi 
 source ./${CONFIG_NAME}
-echo "deploy-app.sh ::: EB Application Name :: ${dev-smis-eb-appl-name}"
-echo "deploy-app.sh ::: EB Environment Name :: ${dev-smis-eb-env-name}"
+echo "deploy-app.sh ::: EB Application Name :: ${dev_smis_eb_appl_name}"
+echo "deploy-app.sh ::: EB Environment Name :: ${dev_smis_eb_env_name}"
