@@ -9,7 +9,7 @@ echo "deploy-app.sh ::: Configuration bucket is ::: ${S3_APPL_CONFIG_BUCKET}"
 
 CONFIG_NAME=$(echo ${S3_APPL_CONFIG_BUCKET} | cut -d '/' -f 5)
 echo "deploy-app.sh ::: Configuration Name is ::: ${CONFIG_NAME}"
-aws s3 cp ${CONFIG_NAME} ${S3_APPL_CONFIG_BUCKET}
+aws s3 cp ${S3_APPL_CONFIG_BUCKET} ${CONFIG_NAME}
 if [[ ! -f ${CONFIG_NAME} ]]
 then
   echo "Environment configuration is missing!"
