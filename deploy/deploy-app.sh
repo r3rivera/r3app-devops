@@ -19,10 +19,10 @@ function getApplConfigurationAndCreateApp() {
     fi 
     source ./${CONFIG_NAME}
     echo "::: EB Application Name :: ${dev_smis_eb_appl_name}"
-    echo "::: EB Application Description :: ${dev_smis_eb_appl_description}"
+    #echo "::: EB Application Description :: ${dev_smis_eb_appl_description}"
     echo "::: EB Environment Name :: ${dev_smis_eb_env_name}"
     
-    createApplication ${dev_smis_eb_appl_name} ${dev_smis_eb_appl_description}
+    createApplication ${dev_smis_eb_appl_name} 
 }
 
 
