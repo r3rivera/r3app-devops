@@ -30,7 +30,12 @@ function getApplConfigurationAndCreateApp() {
     echo "::: EB Environment Name        :: ${dev_smis_eb_env_name}"
     
     #Use the bucket folder as the version label
-    createApplicationVersion "${dev_smis_eb_appl_name}" "${dev_smis_eb_appl_description}" "${S3_BUCKET_PREFIX_SUB}" "${S3_TARGET_BUCKET_PREFIX}/${TARGET_FILE}" "${aws_default_region}"
+    createApplicationVersion "${dev_smis_eb_appl_name}" \
+                        "${dev_smis_eb_appl_description}" \
+                        "${S3_BUCKET_PREFIX_SUB}" \
+                        "${S3_TARGET_BUCKET_PREFIX}/${TARGET_FILE}" \
+                        "${aws_default_region}" \
+                        "${TARGET_FILE}"
 }
 
 
@@ -64,32 +69,41 @@ function createApplicationVersion() {
     APP_ARTIFACT_LABEL=$3
     APP_ARTIFACT_FULLPATH=$4
     APP_REGION=$5
+    APP_FILE=$6
     echo ":::"
     echo ":::"
     echo "::: Creating application of ${APP_NAME_EB}..."
     echo "::: Application description is ${APP_DESC_EB}..."
     echo "::: Application version label is ${APP_ARTIFACT_LABEL}"
-    echo "::: Application artifcat version source is ${APP_ARTIFACT_FULLPATH}"
+    echo "::: Application artifact version source is ${APP_ARTIFACT_FULLPATH}"
+    echo "::: Application artifact name source is ${APP_FILE}"
     echo ":::"
     echo ":::"
     echo ":::"
     EB_APPL_NAME=$(aws elasticbeanstalk describe-applications --application-names ${APP_NAME_EB} | grep ${APP_NAME_EB})
-    if [[ -z ${EB_APPL_NAME} ]] #Application Name Not exist
+    if [[ -z ${EB_APPL_NAME} ]] #Application Name exist
     then 
 
         APP_ACCT_ID=$(aws sts get-caller-identity | grep Arn: | cut -d ':' -f 6)
         echo "::: AWS Account ID is ${APP_ACCT_ID}"
 
         echo "::: Uploading application version of ${APP_ARTIFACT_LABEL} into the S3 bucket"
-        #aws s3 cp s3://
+        TARGET_APPVERSION_BUCKET="elasticbeanstalk-${APP_REGION}-${APP_ACCT_ID}"
 
-        echo "::: Application of ${APP_NAME_EB} does not exist..."
-        aws elasticbeanstalk create-application-version --application-name ${APP_NAME_EB} --description ${APP_DESC_EB} \
-        --version-label ${APP_ARTIFACT_LABEL} --source-bundle S3Bucket="${APP_ARTIFACT_S3BUCKET}",S3Key="${APP_ARTIFACT_S3KEY}" \
-        --auto-create-application || exit 1
+        echo "::: Uploading file in ELastic Beanstalk Target Version Bucket. Bucket is ${TARGET_APPVERSION_BUCKET}"
+        aws s3 cp ${APP_ARTIFACT_FULLPATH} s3://${TARGET_APPVERSION_BUCKET}/${APP_FILE}
+        echo "::: File version upload is complete."
+
+        echo "::: Application of ${APP_NAME_EB} exist. Creating a new version."
+        #aws elasticbeanstalk create-application-version \
+        #                            --application-name ${APP_NAME_EB} \
+        #                            --description ${APP_DESC_EB} \
+        #                            --version-label ${APP_ARTIFACT_LABEL} \
+        #                            --source-bundle S3Bucket="${TARGET_APPVERSION_BUCKET}",S3Key="${APP_ARTIFACT_S3KEY}" \
+        #                            --auto-create-application || exit 1
 
     else
-        echo "::: Application of ${APP_NAME_EB} is exist..."
+        echo "::: Application of ${APP_NAME_EB} does not exist..."
         echo "::: Application details is ${EB_APPL_NAME}"
 
     fi
