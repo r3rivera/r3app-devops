@@ -1,7 +1,6 @@
 #!/bin/bash
 
-function getApplConfigurationAndCreateApp() {
-
+function processDeployment() {
     echo "::: Target Environment is :: $1"
     echo "::: S3 Target Bucket Prefix is [ ${S3_TARGET_BUCKET_PREFIX} ]"
     echo "::: S3 Target Bucket SUB Prefix is [ ${S3_BUCKET_PREFIX_SUB} ]"
@@ -36,11 +35,18 @@ function getApplConfigurationAndCreateApp() {
                         "${S3_TARGET_BUCKET_PREFIX}/${TARGET_FILE}" \
                         "${aws_default_region}" \
                         "${TARGET_FILE}"
+
+    #Check the environment status
+    checkApplStatusAndWait "${dev_smis_eb_env_name}"
+
+    #Update the environment with a new version
+    updateApplicationEnvironment "${dev_smis_eb_env_name}" "${S3_BUCKET_PREFIX_SUB}" 
 }
 
 
 function checkApplStatusAndWait() {
     echo "::: Checking environment sattus..."
+    APP_EB_ENV=$1
     EB_APPL_STATUS = "Updating"
     time_counter=0
 
@@ -55,11 +61,12 @@ function checkApplStatusAndWait() {
             sleep 30
        fi
 
-        echo "::: Checking the status of the ${dev_smis_eb_env_name} environment..."
+        echo "::: Checking the status of the ${APP_EB_ENV} environment..."
         EB_APPL_STATUS=$(aws elasticbeanstalk describe-environment-health --environment-name rcgc-smis-dev-01-webapp --attribute-names Status \
                | grep Status | cut -d ' ' -f 2)
-        echo "::: The status of the ${dev_smis_eb_env_name} is currently ${EB_APPL_STATUS}..."
+        echo "::: The status of the ${APP_EB_ENV} is currently ${EB_APPL_STATUS}..."
     done
+    echo "::: Status of Elastic Beanstalk Env of ${APP_EB_ENV} is now ${EB_APPL_STATUS}"
 }
 
 
@@ -101,6 +108,8 @@ function createApplicationVersion() {
                                     --version-label ${APP_ARTIFACT_LABEL} \
                                     --source-bundle S3Bucket="${TARGET_APPVERSION_BUCKET}",S3Key="${APP_FILE}" \
                                     --auto-create-application || exit 1
+    
+
 
     else
         echo "::: Application of ${APP_NAME_EB} does not exist..."
@@ -109,7 +118,19 @@ function createApplicationVersion() {
     fi
 }
 
+function updateApplicationEnvironment(){
+    echo "::: Start updating the Elastic Bean Environment..."
+    UPD_EB_APPL_ENV=$1
+    UPD_EB_APPL_VERSION_LABEL=$2
+    echo "::: Updating env of ${UPD_EB_APPL_ENV} with application version of ${UPD_EB_APPL_VERSION_LABEL}"
 
-echo "1. Getting Application Configuration..."
-getApplConfigurationAndCreateApp
-echo "2. Getting Elastic Beanstalk Status..."
+    #aws elasticbeanstalk update-environment --environment-name ${UPD_EB_APPL_ENV} \
+    #                                        --version-label ${UPD_EB_APPL_VERSION_LABEL} || exit 1
+
+
+    echo
+}
+
+
+echo "START Deployment..."
+processDeployment
