@@ -32,7 +32,7 @@ function checkApplStatusAndWait() {
        if [[ ${time_counter} == 40 ]]
        then 
             echo "ERROR: Maximum number of retries is reached. The environment is not yet ready. Status is ${EB_APPL_STATUS}." && exit 1
-       elif [[ ${time_counter} > 0]]
+       elif [[ ${time_counter} > 0 ]]
        then 
             echo "Sleeping for 30"
             sleep 30
