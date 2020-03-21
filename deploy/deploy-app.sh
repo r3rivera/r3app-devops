@@ -95,12 +95,12 @@ function createApplicationVersion() {
         echo "::: File version upload is complete."
 
         echo "::: Application of ${APP_NAME_EB} exist. Creating a new version."
-        #aws elasticbeanstalk create-application-version \
-        #                            --application-name ${APP_NAME_EB} \
-        #                            --description ${APP_DESC_EB} \
-        #                            --version-label ${APP_ARTIFACT_LABEL} \
-        #                            --source-bundle S3Bucket="${TARGET_APPVERSION_BUCKET}",S3Key="${APP_ARTIFACT_S3KEY}" \
-        #                            --auto-create-application || exit 1
+        aws elasticbeanstalk create-application-version \
+                                    --application-name ${APP_NAME_EB} \
+                                    --description ${APP_DESC_EB} \
+                                    --version-label ${APP_ARTIFACT_LABEL} \
+                                    --source-bundle S3Bucket="${TARGET_APPVERSION_BUCKET}",S3Key="${APP_ARTIFACT_S3KEY}" \
+                                    --auto-create-application || exit 1
 
     else
         echo "::: Application of ${APP_NAME_EB} does not exist..."
