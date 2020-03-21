@@ -24,12 +24,13 @@ function getApplConfigurationAndCreateApp() {
         echo "::: Environment configuration is missing!" && exit 1
     fi 
     source ./${CONFIG_NAME}
-    echo "::: EB Application Name :: ${dev_smis_eb_appl_name}"
+    echo "::: EB Default AWS Region      :: ${aws_default_region}"
+    echo "::: EB Application Name        :: ${dev_smis_eb_appl_name}"
     echo "::: EB Application Description :: ${dev_smis_eb_appl_description}"
-    echo "::: EB Environment Name :: ${dev_smis_eb_env_name}"
+    echo "::: EB Environment Name        :: ${dev_smis_eb_env_name}"
     
     #Use the bucket folder as the version label
-    createApplicationVersion ${dev_smis_eb_appl_name} "${dev_smis_eb_appl_description}" ${S3_BUCKET_PREFIX_SUB} "${S3_TARGET_BUCKET_PREFIX}/${TARGET_FILE}"
+    createApplicationVersion "${dev_smis_eb_appl_name}" "${dev_smis_eb_appl_description}" "${S3_BUCKET_PREFIX_SUB}" "${S3_TARGET_BUCKET_PREFIX}/${TARGET_FILE}" "${aws_default_region}"
 }
 
 
@@ -62,17 +63,23 @@ function createApplicationVersion() {
     APP_DESC_EB=$2
     APP_ARTIFACT_LABEL=$3
     APP_ARTIFACT_FULLPATH=$4
+    APP_REGION=$5
+    echo ":::"
+    echo ":::"
     echo "::: Creating application of ${APP_NAME_EB}..."
     echo "::: Application description is ${APP_DESC_EB}..."
     echo "::: Application version label is ${APP_ARTIFACT_LABEL}"
     echo "::: Application artifcat version source is ${APP_ARTIFACT_FULLPATH}"
-
-    APP_ACCT_ID=$(aws sts get-caller-identity | grep Arn: | cut -d ':' -f 6)
-    echo "::: AWS Account ID is ${APP_ACCT_ID}"
-
-    EB_APPL_NAME=$(aws elasticbeanstalk describe-applications --application-names ${APP_NAME_EB}| grep ${APP_NAME_EB})
+    echo ":::"
+    echo ":::"
+    echo ":::"
+    EB_APPL_NAME=$(aws elasticbeanstalk describe-applications --application-names ${APP_NAME_EB} | grep ${APP_NAME_EB})
     if [[ -z ${EB_APPL_NAME} ]] #Application Name Not exist
     then 
+
+        APP_ACCT_ID=$(aws sts get-caller-identity | grep Arn: | cut -d ':' -f 6)
+        echo "::: AWS Account ID is ${APP_ACCT_ID}"
+
         echo "::: Uploading application version of ${APP_ARTIFACT_LABEL} into the S3 bucket"
         #aws s3 cp s3://
 
