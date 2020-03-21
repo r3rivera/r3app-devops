@@ -99,7 +99,7 @@ function createApplicationVersion() {
                                     --application-name ${APP_NAME_EB} \
                                     --description ${APP_DESC_EB} \
                                     --version-label ${APP_ARTIFACT_LABEL} \
-                                    --source-bundle S3Bucket="${TARGET_APPVERSION_BUCKET}",S3Key="${APP_ARTIFACT_S3KEY}" \
+                                    --source-bundle S3Bucket="${TARGET_APPVERSION_BUCKET}",S3Key="${APP_FILE}" \
                                     --auto-create-application || exit 1
 
     else
