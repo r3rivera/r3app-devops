@@ -19,9 +19,10 @@ function getApplConfigurationAndCreateApp() {
     fi 
     source ./${CONFIG_NAME}
     echo "::: EB Application Name :: ${dev_smis_eb_appl_name}"
+    echo "::: EB Application Description :: ${dev_smis_eb_appl_description}"
     echo "::: EB Environment Name :: ${dev_smis_eb_env_name}"
-
-    createApplication ${dev_smis_eb_appl_name}
+    
+    createApplication ${dev_smis_eb_appl_name} ${dev_smis_eb_appl_description}
 }
 
 
@@ -58,8 +59,11 @@ function createApplication() {
     if [[ ${EB_APPL_NAME} == "" ]]
     then 
         echo "::: Application of $1 does not exist..."
+        exit 1
+        #aws elasticbeanstalk create-application --application-name $1 --description $2
     else
         echo "::: Application of $1 is exist..."
+        echo ${EB_APPL_NAME}
     fi
 }
 
