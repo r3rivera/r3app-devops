@@ -29,10 +29,7 @@ function getApplConfigurationAndCreateApp() {
     echo "::: EB Environment Name :: ${dev_smis_eb_env_name}"
     
     #Use the bucket folder as the version label
-    createApplicationVersion "${dev_smis_eb_appl_name}" \
-                             "${dev_smis_eb_appl_description}" \ 
-                             "${S3_BUCKET_PREFIX_SUB}" \
-                             "${S3_TARGET_BUCKET_PREFIX}/${TARGET_FILE}"
+    createApplicationVersion ${dev_smis_eb_appl_name} "${dev_smis_eb_appl_description}" ${S3_BUCKET_PREFIX_SUB} "${S3_TARGET_BUCKET_PREFIX}/${TARGET_FILE}"
 }
 
 
