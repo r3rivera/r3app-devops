@@ -20,6 +20,8 @@ function getApplConfiguration() {
     source ./${CONFIG_NAME}
     echo "::: EB Application Name :: ${dev_smis_eb_appl_name}"
     echo "::: EB Environment Name :: ${dev_smis_eb_env_name}"
+
+    createApplication ${dev_smis_eb_appl_name}
 }
 
 
@@ -51,18 +53,17 @@ function checkApplStatusAndWait() {
 
 
 function createApplication() {
-    echo "::: Creating application of ${dev_smis_eb_appl_name}..."
-    EB_APPL_NAME=$(aws elasticbeanstalk describe-applications --application-names ${dev_smis_eb_appl_name} | grep ${dev_smis_eb_appl_name})
+    echo "::: Creating application of $1..."
+    EB_APPL_NAME=$(aws elasticbeanstalk describe-applications --application-names $1| grep $1)
     if [[ ${EB_APPL_NAME} == "" ]]
     then 
-        echo "::: Application of ${dev_smis_eb_appl_name} does not exist..."
+        echo "::: Application of $1 does not exist..."
     else
-        echo "::: Application of ${dev_smis_eb_appl_name} is exist..."
+        echo "::: Application of $1 is exist..."
     fi
 }
 
 
 echo "1. Getting Application Configuration..."
-createApplication
 getApplConfiguration
 echo "2. Getting Elastic Beanstalk Status..."
