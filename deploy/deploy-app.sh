@@ -81,7 +81,7 @@ function createApplicationVersion() {
     echo ":::"
     echo ":::"
     EB_APPL_NAME=$(aws elasticbeanstalk describe-applications --application-names ${APP_NAME_EB} | grep ${APP_NAME_EB})
-    if [[ -z ${EB_APPL_NAME} ]] #Application Name exist
+    if [[ ! -z ${EB_APPL_NAME} ]] #Application Name exist
     then 
 
         APP_ACCT_ID=$(aws sts get-caller-identity | grep Arn: | cut -d ':' -f 6)
