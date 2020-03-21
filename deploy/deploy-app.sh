@@ -29,9 +29,9 @@ function getApplConfigurationAndCreateApp() {
     echo "::: EB Environment Name :: ${dev_smis_eb_env_name}"
     
     #Use the bucket folder as the version label
-    createApplicationVersion ${dev_smis_eb_appl_name} \
-                             ${dev_smis_eb_appl_description} \ 
-                             ${S3_BUCKET_PREFIX_SUB} \
+    createApplicationVersion "${dev_smis_eb_appl_name}" \
+                             "${dev_smis_eb_appl_description}" \ 
+                             "${S3_BUCKET_PREFIX_SUB}" \
                              "${S3_TARGET_BUCKET_PREFIX}/${TARGET_FILE}"
 }
 
@@ -74,7 +74,7 @@ function createApplicationVersion() {
     echo "::: AWS Account ID is ${APP_ACCT_ID}"
 
     EB_APPL_NAME=$(aws elasticbeanstalk describe-applications --application-names ${APP_NAME_EB}| grep ${APP_NAME_EB})
-    if [[ -z ${EB_APPL_NAME} ]] #Application Name exist
+    if [[ -z ${EB_APPL_NAME} ]] #Application Name Not exist
     then 
         echo "::: Uploading application version of ${APP_ARTIFACT_LABEL} into the S3 bucket"
         #aws s3 cp s3://
