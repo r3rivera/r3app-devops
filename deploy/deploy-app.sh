@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function getApplConfiguration() {
+function getApplConfigurationAndCreateApp() {
     echo "::: Deploying applications..."
     echo "::: Target Environment is :: $1"
     echo "::: S3 Target Bucket Prefix is [ ${S3_TARGET_BUCKET_PREFIX} ]"
@@ -65,5 +65,5 @@ function createApplication() {
 
 
 echo "1. Getting Application Configuration..."
-getApplConfiguration
+getApplConfigurationAndCreateApp
 echo "2. Getting Elastic Beanstalk Status..."
