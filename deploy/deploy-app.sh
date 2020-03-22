@@ -112,7 +112,7 @@ function createApplicationVersion() {
         TARGET_APPVERSION_BUCKET="elasticbeanstalk-${APP_REGION}-${APP_ACCT_ID}"
 
         echo "::: Uploading file in ELastic Beanstalk Target Version Bucket. Bucket is ${TARGET_APPVERSION_BUCKET}"
-        aws s3 cp ${APP_ARTIFACT_FULLPATH} s3://${TARGET_APPVERSION_BUCKET}/${APP_FILE}
+        aws s3 cp ${APP_ARTIFACT_FULLPATH} s3://${TARGET_APPVERSION_BUCKET}/${APP_FILE} || exit 1
         echo "::: File version upload is complete."
 
         echo "::: Application of ${APP_NAME_EB} exist. Creating a new version."
