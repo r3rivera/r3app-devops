@@ -1,0 +1,72 @@
+{
+    "Statement": [
+      {
+        "Action": [
+          "elasticbeanstalk:CreateApplicationVersion",
+          "elasticbeanstalk:DescribeEnvironments",
+          "elasticbeanstalk:DeleteApplicationVersion",
+          "elasticbeanstalk:UpdateEnvironment",
+          "elasticloadbalancing:DescribeInstanceHealth",
+          "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
+          "elasticloadbalancing:RegisterInstancesWithLoadBalancer"
+        ],
+        "Effect": "Allow",
+        "Resource": "*"
+      },
+      {
+        "Action": [
+          "sns:CreateTopic",
+          "sns:GetTopicAttributes",
+          "sns:ListSubscriptionsByTopic",
+          "sns:Subscribe"
+        ],
+        "Effect": "Allow",
+        "Resource": "arn:aws:sns:[region]:[accountid]:*"
+      },
+      {
+        "Action": [
+          "autoscaling:SuspendProcesses",
+          "autoscaling:DescribeScalingActivities",
+          "autoscaling:ResumeProcesses",
+          "autoscaling:DescribeAutoScalingGroups"
+        ],
+        "Effect": "Allow",
+        "Resource": "*"
+      },
+      {
+        "Action": [
+          "cloudformation:GetTemplate",
+          "cloudformation:DescribeStackResource",
+          "cloudformation:DescribeStackResources",
+          "cloudformation:UpdateStack"
+        ],
+        "Effect": "Allow",
+        "Resource": "arn:aws:cloudformation:[region]:[accountid]:*"
+      },
+      {
+        "Action": [
+          "ec2:DescribeImages",
+          "ec2:DescribeKeyPairs"
+        ],
+        "Effect": "Allow",
+        "Resource": "*"
+     },
+     {
+      "Action": [
+       "s3:PutObject",
+       "s3:PutObjectAcl",
+       "s3:GetObject",
+       "s3:GetObjectAcl",
+       "s3:ListBucket",
+       "s3:DeleteObject",
+       "s3:GetBucketPolicy",
+       "s3:CreateBucket"
+     ],
+     "Effect": "Allow",
+     "Resource": [
+      "arn:aws:s3:::elasticbeanstalk-[region]-[accountid]",
+      "arn:aws:s3:::elasticbeanstalk-[region]-[accountid]/*"
+     ]
+    }
+   ]
+  }

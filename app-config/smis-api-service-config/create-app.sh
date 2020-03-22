@@ -1,4 +1,4 @@
 #!/bin/bash
 
 #Check if the application exist
-aws elasticbeanstalk describe-applications --application-names rcgc-smis-dev | grep rcgc-smis-dev
+aws elasticbeanstalk describe-applications --application-names ${EB_APPL_NAME} | grep ${EB_APPL_NAME}
