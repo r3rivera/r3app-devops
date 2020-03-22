@@ -41,11 +41,17 @@ function processDeployment() {
 
     #Update the environment with a new version
     updateApplicationEnvironment "${dev_smis_eb_env_name}" "${S3_BUCKET_PREFIX_SUB}" 
+
+    #Check the environment status
+    checkApplStatusAndWait "${dev_smis_eb_env_name}"
+
+    #Get Environemnt Details
+    getApplicationEnvironmentDetails "${dev_smis_eb_env_name}"
 }
 
 
 function checkApplStatusAndWait() {
-    echo "::: Checking environment sattus..."
+    echo "::: Checking environment status..."
     APP_EB_ENV=$1
     EB_APPL_STATUS = "Updating"
     time_counter=0
@@ -62,11 +68,19 @@ function checkApplStatusAndWait() {
        fi
 
         echo "::: Checking the status of the ${APP_EB_ENV} environment..."
-        EB_APPL_STATUS=$(aws elasticbeanstalk describe-environment-health --environment-name rcgc-smis-dev-01-webapp --attribute-names Status \
+        EB_APPL_STATUS=$(aws elasticbeanstalk describe-environment-health --environment-name ${APP_EB_ENV}  --attribute-names Status \
                | grep Status | cut -d ' ' -f 2)
         echo "::: The status of the ${APP_EB_ENV} is currently ${EB_APPL_STATUS}..."
     done
     echo "::: Status of Elastic Beanstalk Env of ${APP_EB_ENV} is now ${EB_APPL_STATUS}"
+}
+
+
+function getApplicationEnvironmentDetails(){
+    echo "::: Getting environment status..."
+    APP_EB_ENV=$1
+    aws elasticbeanstalk describe-environment-health --environment-name ${APP_EB_ENV}  --attribute-names All
+    echo "::: Done environment deployment..."
 }
 
 
@@ -124,8 +138,8 @@ function updateApplicationEnvironment(){
     UPD_EB_APPL_VERSION_LABEL=$2
     echo "::: Updating env of ${UPD_EB_APPL_ENV} with application version of ${UPD_EB_APPL_VERSION_LABEL}"
 
-    #aws elasticbeanstalk update-environment --environment-name ${UPD_EB_APPL_ENV} \
-    #                                        --version-label ${UPD_EB_APPL_VERSION_LABEL} || exit 1
+    aws elasticbeanstalk update-environment --environment-name ${UPD_EB_APPL_ENV} \
+                                            --version-label ${UPD_EB_APPL_VERSION_LABEL} || exit 1
 
 
     echo
