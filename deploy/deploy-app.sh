@@ -53,7 +53,7 @@ function processDeployment() {
 function checkApplStatusAndWait() {
     echo "::: Checking environment status..."
     APP_EB_ENV=$1
-    EB_APPL_STATUS = "Updating"
+    EB_APPL_STATUS="Updating"
     time_counter=0
 
     while [ ${EB_APPL_STATUS} != "Ready" ]
