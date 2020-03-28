@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function processDeployment() {
-    echo "::: Target Environment is :: $1"
+ 
     ENV_TYPE_NAME="$1"
     echo "::: Target Environment is :: ${ENV_TYPE_NAME}"
     echo "::: S3 Target Bucket Prefix is [ ${S3_TARGET_BUCKET_PREFIX} ]"
@@ -33,9 +33,9 @@ function processDeployment() {
     source ./${CONFIG_NAME}
 
     
-    AWS_EB_APPLNAME="${ENV_TYPE_NAME}_eb_appl_name"
-    AWS_EB_APPLDESC="${ENV_TYPE_NAME}_eb_appl_description"
-    AWS_EB_ENVINAME="${ENV_TYPE_NAME}_eb_env_name"
+    AWS_EB_APPLNAME=$("${ENV_TYPE_NAME}_eb_appl_name")
+    AWS_EB_APPLDESC=$("${ENV_TYPE_NAME}_eb_appl_description")
+    AWS_EB_ENVINAME=$("${ENV_TYPE_NAME}_eb_env_name")
 
 
     echo "::: EB Default AWS Region      :: ${aws_default_region}"
