@@ -67,7 +67,7 @@ else
 
    echo "Copying files in within the ${TARGET_DIRFILE}"
    cp -rv ./src/.ebextensions/* ./${TARGET_DIRFILE}/.ebextensions || exit 1
-   cp -v ./target/*.jar ./${TARGET_DIRFILE} || exit 1
+   cp -v ./target/*.jar ./${TARGET_DIRFILE}/${APP_NAME}.jar|| exit 1
 
    echo "Copying files in within the ${TARGET_DIRFILE} is complete..."
 
