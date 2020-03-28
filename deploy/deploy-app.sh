@@ -162,4 +162,4 @@ function updateApplicationEnvironment(){
 
 
 echo "START Deployment..."
-processDeployment
+processDeployment $1
