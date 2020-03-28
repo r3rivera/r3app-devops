@@ -1,7 +1,8 @@
 #!/bin/bash
 
 function processDeployment() {
-    echo "::: Target Environment is :: $1"
+    ENV_TYPE_NAME=$1
+    echo "::: Target Environment is :: ${ENV_TYPE_NAME}"
     echo "::: S3 Target Bucket Prefix is [ ${S3_TARGET_BUCKET_PREFIX} ]"
     echo "::: S3 Target Bucket SUB Prefix is [ ${S3_BUCKET_PREFIX_SUB} ]"
     echo "::: Target File is [ ${TARGET_FILE} ]"
@@ -23,30 +24,36 @@ function processDeployment() {
         echo "::: Environment configuration is missing!" && exit 1
     fi 
     source ./${CONFIG_NAME}
-    echo "::: EB Default AWS Region      :: ${aws_default_region}"
-    echo "::: EB Application Name        :: ${dev_smis_eb_appl_name}"
-    echo "::: EB Application Description :: ${dev_smis_eb_appl_description}"
-    echo "::: EB Environment Name        :: ${dev_smis_eb_env_name}"
+
     
+    AWS_EB_APPLNAME = "${ENV_TYPE_NAME}_eb_appl_name"
+    AWS_EB_APPLDESC = "${ENV_TYPE_NAME}_eb_appl_description"
+    AWS_EB_ENVINAME = "${ENV_TYPE_NAME}_eb_env_name"
+
+    echo "::: EB Default AWS Region      :: ${aws_default_region}"
+    echo "::: EB Application Name        :: ${AWS_EB_APPLNAME}"
+    echo "::: EB Application Description :: ${AWS_EB_APPLDESC}"
+    echo "::: EB Environment Name        :: ${AWS_EB_ENVINAME}"
+
     #Use the bucket folder as the version label
-    createApplicationVersion "${dev_smis_eb_appl_name}" \
-                        "${dev_smis_eb_appl_description}" \
+    createApplicationVersion "${AWS_EB_APPLNAME}" \
+                        "${AWS_EB_APPLDESC}" \
                         "${S3_BUCKET_PREFIX_SUB}" \
                         "${S3_TARGET_BUCKET_PREFIX}/${TARGET_FILE}" \
                         "${aws_default_region}" \
                         "${TARGET_FILE}"
 
     #Check the environment status
-    checkApplStatusAndWait "${dev_smis_eb_env_name}"
+    checkApplStatusAndWait "${AWS_EB_ENVINAME}"
 
     #Update the environment with a new version
-    updateApplicationEnvironment "${dev_smis_eb_env_name}" "${S3_BUCKET_PREFIX_SUB}" 
+    updateApplicationEnvironment "${AWS_EB_ENVINAME}" "${S3_BUCKET_PREFIX_SUB}" 
 
     #Check the environment status
-    checkApplStatusAndWait "${dev_smis_eb_env_name}"
+    checkApplStatusAndWait "${AWS_EB_ENVINAME}"
 
     #Get Environemnt Details
-    getApplicationEnvironmentDetails "${dev_smis_eb_env_name}"
+    getApplicationEnvironmentDetails "${AWS_EB_ENVINAME}"
 }
 
 
