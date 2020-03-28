@@ -1,11 +1,18 @@
 #!/bin/bash
 
 function processDeployment() {
-    ENV_TYPE_NAME=$1
+    echo "::: Target Environment is :: $1"
+    ENV_TYPE_NAME="$1"
     echo "::: Target Environment is :: ${ENV_TYPE_NAME}"
     echo "::: S3 Target Bucket Prefix is [ ${S3_TARGET_BUCKET_PREFIX} ]"
     echo "::: S3 Target Bucket SUB Prefix is [ ${S3_BUCKET_PREFIX_SUB} ]"
     echo "::: Target File is [ ${TARGET_FILE} ]"
+
+    if [[ ${ENV_TYPE_NAME} == "" ]]
+    then
+        echo "Environment not found!!"
+        exit 1;
+    fi
 
     if [[ -z ${S3_APPL_CONFIG_BUCKET} ]]
     then
