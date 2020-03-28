@@ -1,0 +1,8 @@
+Add the following within the Jenkins Build 
+-----------------------------------------------------------------
+#!/bin/bash
+echo "Getting the devops build command"
+echo "Workspace :: $WORKSPACE"
+
+dos2unix ../../R3App-DevTools/build/app/build.sh
+../../R3App-DevTools/build/app/build.sh <<S3-Artifact-BucketName>> <<S3-Artifact-Prefix>>

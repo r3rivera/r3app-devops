@@ -1,0 +1,24 @@
+---    
+Parameters: # Generates an Input Parameter that gets the user prompted
+  OrgName:
+    Type: String
+    Default: r2app 
+Resources:
+  S3BucketStaticWebConfig:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Join [ "-", [ !Ref OrgName, web-ui-resource ]] # Bucket containing the angular files for frontend
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+  S3ApplicationConfigBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Join [ "-", [ !Ref OrgName, appl-config ]] # Bucket containing the backend service config that are deployable
+      AccessControl: AuthenticatedRead
+  S3ApplicationArtifactBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Join [ "-", [ !Ref OrgName, appl-artifact ]] # Bucket containing the application artifacts
+      AccessControl: AuthenticatedRead
+
