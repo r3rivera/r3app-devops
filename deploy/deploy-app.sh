@@ -33,9 +33,9 @@ function processDeployment() {
     source ./${CONFIG_NAME}
 
     
-    AWS_EB_APPLNAME=$("${ENV_TYPE_NAME}_eb_appl_name")
-    AWS_EB_APPLDESC=$("${ENV_TYPE_NAME}_eb_appl_description")
-    AWS_EB_ENVINAME=$("${ENV_TYPE_NAME}_eb_env_name")
+    AWS_EB_APPLNAME=${${ENV_TYPE_NAME}"_eb_appl_name"} || exit 1
+    AWS_EB_APPLDESC=${${ENV_TYPE_NAME}"_eb_appl_description"}|| exit 1
+    AWS_EB_ENVINAME=${${ENV_TYPE_NAME}"_eb_env_name"} || exit 1
 
 
     echo "::: EB Default AWS Region      :: ${aws_default_region}"
