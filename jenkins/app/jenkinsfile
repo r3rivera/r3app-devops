@@ -15,14 +15,14 @@ pipeline {
                 echo "S3_BUCKET_PREFIX        ::: ${S3_BUCKET_PREFIX}"
                 echo "Target File is          ::: ${TARGET_FILE}"
 
-                sh "chmod +x ./deploy/*.sh"
+                // sh "chmod +x ./deploy/*.sh"
 
             }
         }
         stage('DEV Deploy') {
             steps{
                 echo 'Testing DEV R3APP'
-                sh "./deploy/deploy-app.sh dev"
+                // sh "./deploy/deploy-app.sh dev"
 
             }
         }
