@@ -15,21 +15,16 @@ pipeline {
 
             }
         }
-        stage('DEV Deploy') {
+        stage('Local Docker Deploy') {
             steps{
                 echo 'Testing DEV R3APP'
                 // sh "./deploy/deploy-app.sh dev"
 
             }
         }
-        stage('TEST Deploy') {
+        stage('Production Deploy') {
             steps{
-                echo 'Testing TEST R3APP'
-            }
-        }
-        stage('ACPT Deploy') {
-            steps{
-                echo 'Deploying ACPT R3APP'
+                echo 'Deploying Production R3APP'
             }
         }
         
