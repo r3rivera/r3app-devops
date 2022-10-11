@@ -11,7 +11,7 @@ pipeline {
                 echo "Building R3APP"
                 echo "CURRENT WORKSPACE       ::: ${WORKSPACE}"
 
-                // sh "chmod +x ./deploy/*.sh"
+                sh "chmod +x ./build/app/build-config.sh  testS3Bucket testS3Prefix"
 
             }
         }

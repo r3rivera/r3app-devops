@@ -3,6 +3,14 @@ echo "## Building the configuration of ${APP_NAME}..."
 echo "## Workspace is ${WORKSPACE}"
 echo "############## START ::: BUILD INFORMATION ##############"
 echo ""
+echo "## Displaying Java Version..."
+java -version | head -n 1
+
+echo "## Displaying Maven Version..."
+mvn --version | head -n 1
+
+echo "## Displaying GIT Version..."
+git --version | head -n 1
 echo ""
 echo "Git URL      :: ${GIT_URL}"
 echo "Git Branch   :: ${GIT_BRANCH}"
